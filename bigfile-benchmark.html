@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body></body>
+</html>
+
+<script src="a.out.js"></script>
+<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
+<script src="a.out.js"></script>
+<script>
+  Module.onRuntimeInitialized = _ => {
+    fetch('./test.txt').then(res => res.text()).then(data => {
+      const source = data.toString();
+      const time1 = Date.now();
+        const benchTimes = 1;
+        for (let i = 0; i < benchTimes; i++) {
+            md5(source);
+        }
+        const time2 = Date.now();
+        for (let i = 0; i < benchTimes; i++) {
+            mdmd(source);
+        }
+        const time3 = Date.now();
+        console.log('js :', time2 - time1);
+        console.log('wasm :', time3 - time2);
+    });
+  };
+</script>

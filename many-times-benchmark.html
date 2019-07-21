@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+
+<script src="a.out.js"></script>
+<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
+<script>
+    Module.onRuntimeInitialized = _ => {
+        const mdmd = Module.cwrap('mdmd', 'number', ['string']);
+        const time1 = Date.now();
+        const benchTimes = 500000000;
+        for (let i = 0; i < benchTimes; i++) {
+            md5('ivweb');
+        }
+        const time2 = Date.now();
+        for (let i = 0; i < benchTimes; i++) {
+            mdmd('ivweb');
+        }
+        const time3 = Date.now();
+        console.log('js :', time2 - time1);
+        console.log('wasm :', time3 - time2);
+    };
+</script>
+
+</html>
